@@ -1,5 +1,5 @@
 # react-flux-boiler-plate
-
+---
 Simple React Flux Boiler plate to understand the concept for the Flux architecture.
 
 App is simple where on the button click we are generating the random number and what is getting generated
@@ -11,11 +11,11 @@ The initial setup and index / configuration files for the project have been take
 
 Remaining Directory Structure :-
 
-src/ js / actions : for having the action creator functions
-src/ js / components : for having the components used in app
-src/ js / dispatcher : for the dispatcher that connects actions to Store
-src/ js / store : for store to provide initial and updated state
-src/ js / utils : for utility functions or constants
+- src/ js / actions : for having the action creator functions
+- src/ js / components : for having the components used in app
+- src/ js / dispatcher : for the dispatcher that connects actions to Store
+- src/ js / store : for store to provide initial and updated state
+- src/ js / utils : for utility functions or constants
 
 
 Below is the flow :-
@@ -34,4 +34,4 @@ For running the Project please use :-
     >npm run dev
 
 2. for running the production version of the code
-    >npm run build: 
+    >npm run build
