@@ -7,17 +7,16 @@ is being appened in the UI with '/' separated.
 
 Concepts that we learn here is the flow of the data among the components.
 
-Directory Structure :-
+The initial setup and index / configuration files for the project have been taken from my [react-stand-alone](https://github.com/prashantvermaiiitb/simple-react-node-app) App code.
 
-src
-| --- js
-| | --- actions : for having the action creator functions
-| | --- components : for having the components used in app
-| | --- dispatcher : for the dispatcher that connects actions to Store
-| | --- store : for store to provide initial and updated state
-| | --- utils : for utility functions or constants
+Remaining Directory Structure :-
 
-The initial setup for the project can be taken and learnt from my [react-stand-alone](https://github.com/prashantvermaiiitb/simple-react-node-app) app code.
+src/ js / actions : for having the action creator functions
+src/ js / components : for having the components used in app
+src/ js / dispatcher : for the dispatcher that connects actions to Store
+src/ js / store : for store to provide initial and updated state
+src/ js / utils : for utility functions or constants
+
 
 Below is the flow :-
 1. <App/> : This component has to be created to be shown on the UI 
