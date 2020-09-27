@@ -19,6 +19,7 @@ class App extends Component {
       data: AppStore.getData(),
     };
     this.performUIUpdate = this.performUIUpdate.bind(this); // This is being needed else this.setState() will not be working in the performUIUpdate()
+    this.handleClearClick = this.handleClearClick.bind(this);
   }
   /**
    * Getting the derived states from props
@@ -64,16 +65,32 @@ class App extends Component {
   handleClick(event) {
     AppActions.handleClickAction(AppStore.generateData());
   }
-
+  /**
+   * Trigger Clear action on click of the clear button
+   * @param {*} event
+   */
+  handleClearClick(event) {
+    if (this.state.data === "") {
+      alert("Please have data before clearing");
+      return false;
+    }
+    AppActions.handleClearAction();
+  }
   /**
    * rendering the APP
    */
   render() {
     let buttonStyle = {
-      marginTop: 10,
-      padding: 10,
-      backgroundColor: "mediumspringgreen",
-    };
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: "mediumspringgreen",
+      },
+      clearButtonStyle = {
+        marginTop: 10,
+        padding: 10,
+        marginLeft: 10,
+        backgroundColor: "aqua",
+      };
     return (
       <div>
         <div
@@ -87,9 +104,14 @@ class App extends Component {
         >
           {this.state.data}
         </span>
-        <button onClick={this.handleClick} style={buttonStyle}>
-          Emit Event
-        </button>
+        <div>
+          <button onClick={this.handleClick} style={buttonStyle}>
+            Emit Event
+          </button>
+          <button onClick={this.handleClearClick} style={clearButtonStyle}>
+            Clear
+          </button>
+        </div>
       </div>
     );
   }

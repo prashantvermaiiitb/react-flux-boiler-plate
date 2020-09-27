@@ -1,4 +1,7 @@
-import { CLICK_ACTION_DISPATCHER } from "../utils/AppConstants";
+import {
+  CLICK_ACTION_DISPATCHER,
+  CLEAR_ACTION_DISPATCHER,
+} from "../utils/AppConstants";
 import { Dispatcher } from "flux";
 
 /**
@@ -15,6 +18,16 @@ export const AppDispatcher = Object.assign(new Dispatcher(), {
   handleClickAction: function (action) {
     this.dispatch({
       source: CLICK_ACTION_DISPATCHER,
+      action,
+    });
+  },
+  /**
+   * Handling the clear action triggered by the view
+   * @param {*} action
+   */
+  handleClearAction: function (action) {
+    this.dispatch({
+      source: CLEAR_ACTION_DISPATCHER,
       action,
     });
   },

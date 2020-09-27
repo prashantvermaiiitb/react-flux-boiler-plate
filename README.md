@@ -3,7 +3,7 @@
 Simple React Flux Boiler plate to understand the concept for the Flux architecture.
 
 App is simple where on the button click we are generating the random number and what is getting generated
-is being appened in the UI with '/' separated.
+is being append in the UI with '/' separated.
 
 Concepts that we learn here is the flow of the data among the components.
 

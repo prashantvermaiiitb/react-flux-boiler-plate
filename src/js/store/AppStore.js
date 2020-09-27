@@ -1,5 +1,9 @@
 import { EventEmitter } from "events";
-import { CHANGE_EVENT, CLICK_ACTION } from "../utils/AppConstants";
+import {
+  CHANGE_EVENT,
+  CLICK_ACTION,
+  CLEAR_ACTION,
+} from "../utils/AppConstants";
 import { AppDispatcher } from "../dispatcher/AppDispatcher";
 /**
  * App Store to be used for the Flux.
@@ -40,7 +44,14 @@ export const AppStore = Object.assign({}, EventEmitter.prototype, {
    * @param {*} text
    */
   addItem: function (text) {
-    data += ` / ` + text;
+    let prefix = data !== "" ? " / " : "";
+    data += prefix + text;
+  },
+  /**
+   * Clearing whatever data that has been put in the store
+   */
+  clearItem: function () {
+    data = "";
   },
   /**
    * Emitting the change
@@ -54,13 +65,17 @@ export const AppStore = Object.assign({}, EventEmitter.prototype, {
  * For the dispatcher to know what we are going to dispatch from the actions.
  */
 AppDispatcher.register(function (data) {
-//   console.log("Inside register ..", data);
+  //   console.log("Inside register ..", data);
 
   let action = data.action;
 
   switch (action.actionType) {
     case CLICK_ACTION:
       AppStore.addItem(data.action.payload);
+      AppStore.emitChange();
+      break;
+    case CLEAR_ACTION:
+      AppStore.clearItem();
       AppStore.emitChange();
       break;
   }
