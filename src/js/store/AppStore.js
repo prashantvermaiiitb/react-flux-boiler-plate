@@ -10,6 +10,8 @@ import { AppDispatcher } from "../dispatcher/AppDispatcher";
  * This will provide the initial data.
  * This will emit the changes to which view should be listening.
  * This will register with Dispatcher for listening to the actions generated and their data received.
+ * @todo Store is doing more in terms of emitting and adding 'actionListener'
+ * @todo Store is also providing the data as well to the Application
  */
 
 let data = Math.random();
@@ -63,6 +65,7 @@ export const AppStore = Object.assign({}, EventEmitter.prototype, {
 
 /**
  * For the dispatcher to know what we are going to dispatch from the actions.
+ * @todo : This is similar to what is being happening in the Reducer part ?
  */
 AppDispatcher.register(function (data) {
   //   console.log("Inside register ..", data);
