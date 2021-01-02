@@ -3,6 +3,8 @@ import {
   CHANGE_EVENT,
   CLICK_ACTION,
   CLEAR_ACTION,
+  LOAD_END_ACTION,
+  LOAD_START_ACTION,
 } from "../utils/AppConstants";
 import { AppDispatcher } from "../dispatcher/AppDispatcher";
 /**
@@ -14,7 +16,7 @@ import { AppDispatcher } from "../dispatcher/AppDispatcher";
  * @todo Store is also providing the data as well to the Application
  */
 
-let data = Math.random();
+let data = { number: Math.random() };
 
 export const AppStore = Object.assign({}, EventEmitter.prototype, {
   /**
@@ -26,7 +28,9 @@ export const AppStore = Object.assign({}, EventEmitter.prototype, {
   /**
    * generating the random number
    */
-  generateData: () => Math.random(),
+  generateData: () => {
+    return { number: Math.random() };
+  },
   /**
    * Adding the Listener
    * @param {*} callback
@@ -46,20 +50,41 @@ export const AppStore = Object.assign({}, EventEmitter.prototype, {
    * @param {*} text
    */
   addItem: function (text) {
-    let prefix = data !== "" ? " / " : "";
-    data += prefix + text;
+    let prefix = data.number !== "" ? " / " : "";
+    data.number += prefix + text;
   },
   /**
    * Clearing whatever data that has been put in the store
    */
   clearItem: function () {
-    data = "";
+    // data.number = "";
+    data = {};
   },
   /**
    * Emitting the change
    */
   emitChange: function () {
     this.emit(CHANGE_EVENT);
+  },
+  /**
+   * Adding loader in the the data-set
+   */
+  addLoader: function () {
+    data.loader = true;
+    delete data.users;
+  },
+  /**
+   * removing the data-loader key to indicate loading has been done
+   */
+  removeLoader: function () {
+    delete data.loader;
+  },
+  /**
+   * adding users in the store
+   * @param {*} users
+   */
+  addUsers: function (users) {
+    data.users = users;
   },
 });
 
@@ -74,11 +99,20 @@ AppDispatcher.register(function (data) {
 
   switch (action.actionType) {
     case CLICK_ACTION:
-      AppStore.addItem(data.action.payload);
+      AppStore.addItem(data.action.payload.number);
       AppStore.emitChange();
       break;
     case CLEAR_ACTION:
       AppStore.clearItem();
+      AppStore.emitChange();
+      break;
+    case LOAD_START_ACTION:
+      AppStore.addLoader();
+      AppStore.emitChange();
+      break;
+    case LOAD_END_ACTION:
+      AppStore.addUsers(data.action.payload.users);
+      AppStore.removeLoader();
       AppStore.emitChange();
       break;
   }

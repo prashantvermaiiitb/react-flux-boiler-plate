@@ -1,6 +1,8 @@
 import {
   CLICK_ACTION_DISPATCHER,
   CLEAR_ACTION_DISPATCHER,
+  ASYNC_LOAD_END_ACTION_DISPATCHER,
+  ASYNC_LOAD_START_ACTION_DISPATCHER,
 } from "../utils/AppConstants";
 import { Dispatcher } from "flux";
 
@@ -28,6 +30,26 @@ export const AppDispatcher = Object.assign(new Dispatcher(), {
   handleClearAction: function (action) {
     this.dispatch({
       source: CLEAR_ACTION_DISPATCHER,
+      action,
+    });
+  },
+  /**
+   * Dispatching the Async load start action
+   * @param {*} action : action object
+   */
+  handleAsyncLoadStartAction: function (action) {
+    this.dispatch({
+      source: ASYNC_LOAD_START_ACTION_DISPATCHER,
+      action,
+    });
+  },
+  /**
+   * Dispatching the Async load end action
+   * @param {*} action : action object
+   */
+  handleAsyncLoadEndAction: function (action) {
+    this.dispatch({
+      source: ASYNC_LOAD_END_ACTION_DISPATCHER,
       action,
     });
   },

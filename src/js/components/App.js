@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { AppStore } from "../store/AppStore";
 import { AppActions } from "../actions/AppActions";
+import UserList from "./User";
 
 /**
  * Main App component for the flux boiler plate.
@@ -66,6 +67,13 @@ class App extends Component {
     AppActions.handleClickAction(AppStore.generateData());
   }
   /**
+   * handling async event
+   * @param {*} event
+   */
+  handleAsyncClick(event) {
+    AppActions.handleAsyncClickAction(AppStore.generateData());
+  }
+  /**
    * Trigger Clear action on click of the clear button
    * @param {*} event
    */
@@ -75,6 +83,9 @@ class App extends Component {
       return false;
     }
     AppActions.handleClearAction();
+  }
+  renderLoader() {
+    return <img src="../../images/loader.gif" alt="loading the data..." />;
   }
   /**
    * rendering the APP
@@ -91,6 +102,7 @@ class App extends Component {
         marginLeft: 10,
         backgroundColor: "aqua",
       };
+    // console.log(this.state.data.users);
     return (
       <div>
         <div
@@ -102,11 +114,16 @@ class App extends Component {
         <span
           style={{ backgroundColor: "lightblue", padding: 10, display: "flex" }}
         >
-          {this.state.data}
+          {this.state.data.number}
         </span>
+        {this.state.data.loader && this.renderLoader()}
+        {this.state.data.users && <UserList users={this.state.data.users} />}
         <div>
           <button onClick={this.handleClick} style={buttonStyle}>
             Emit Event
+          </button>
+          <button onClick={this.handleAsyncClick} style={buttonStyle}>
+            Emit Async Event
           </button>
           <button onClick={this.handleClearClick} style={clearButtonStyle}>
             Clear
